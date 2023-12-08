@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -68,4 +70,9 @@ dependencies {
     androidTestImplementation compose_ui_test_junit4
     debugImplementation compose_ui_tooling
     debugImplementation ui_test_manifest
+
+    // Dependency Injection
+    implementation hilt_android
+    kapt hilt_compiler
+    kapt android_hilt_compiler
 }

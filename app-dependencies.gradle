@@ -11,6 +11,8 @@ ext {
     kotlin_version = "1.9.0"
     android_gradle_plugin_version = "8.1.1"
     ktlint_version = "11.0.0"
+    hilt_version = "2.47"
+    android_hilt_compiler_version = "1.0.0"
 
     // ***** Core *****
     core_ktx = "androidx.core:core-ktx:$core_ktx_version"
@@ -31,4 +33,9 @@ ext {
     espresso_core = "androidx.test.espresso:espresso-core:$espresso_core_version"
     compose_ui_test_junit4 = "androidx.compose.ui:ui-test-junit4"
     ui_test_manifest = "androidx.compose.ui:ui-test-manifest"
+
+    // ***** Dependency Injection *****
+    hilt_android = "com.google.dagger:hilt-android:$hilt_version"
+    hilt_compiler = "com.google.dagger:hilt-compiler:$hilt_version"
+    android_hilt_compiler = "androidx.hilt:hilt-compiler:$android_hilt_compiler_version"
 }
