@@ -54,6 +54,7 @@ dependencies {
     implementation core_ktx
     implementation lifecycle_runtime_ktx
     implementation activity_compose
+    implementation splash_screen
 
     // ***** Compose *****
     implementation platform(compose_bom)
