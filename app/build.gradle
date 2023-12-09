@@ -61,6 +61,7 @@ dependencies {
     implementation compose_ui_graphics
     implementation compose_ui_tooling_preview
     implementation compose_material3
+    implementation navigation_compose
 
     // ***** Tests *****
     testImplementation junit
@@ -73,6 +74,7 @@ dependencies {
 
     // Dependency Injection
     implementation hilt_android
+    implementation hilt_navigation_compose
     kapt hilt_compiler
     kapt android_hilt_compiler
 }
