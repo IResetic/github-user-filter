@@ -4,7 +4,8 @@ enum class ApiErrorType {
     SERVER_ERROR,
     NO_INTERNET_CONNECTION,
     CONNECTION_TIME_OUT,
-    EXCEPTION
+    EXCEPTION,
+    UNKNOWN_ERROR
 }
 
 inline fun <T> ApiResult<T>.onSuccess(action: (T) -> Unit): ApiResult<T> {

@@ -1,5 +1,7 @@
 package com.example.githubuserfilter.githubusers.data.di
 
+import com.example.githubuserfilter.githubusers.data.datasource.FilterUsersRemoteDatasource
+import com.example.githubuserfilter.githubusers.data.datasource.FilterUsersRemoteDatasourceImpl
 import com.example.githubuserfilter.githubusers.data.repository.FilterUsersRepositoryImpl
 import com.example.githubuserfilter.githubusers.domain.repository.FilterUsersRepository
 import dagger.Binds
@@ -12,5 +14,8 @@ import dagger.hilt.components.SingletonComponent
 interface FilterUsersDataModule {
 
     @Binds
-    fun provideFilterUsersRepository(impl: FilterUsersRepositoryImpl): FilterUsersRepository
+    fun bindsFilterUsersRepository(impl: FilterUsersRepositoryImpl): FilterUsersRepository
+
+    @Binds
+    fun bindsFilterUsersRemoteDatasource(impl: FilterUsersRemoteDatasourceImpl): FilterUsersRemoteDatasource
 }

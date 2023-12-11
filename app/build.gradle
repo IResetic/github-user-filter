@@ -56,6 +56,8 @@ dependencies {
     implementation lifecycle_runtime_ktx
     implementation activity_compose
     implementation splash_screen
+    implementation kotlinx_coroutines_core
+    implementation kotlinx_coroutines_android
 
     // ***** Compose *****
     implementation platform(compose_bom)

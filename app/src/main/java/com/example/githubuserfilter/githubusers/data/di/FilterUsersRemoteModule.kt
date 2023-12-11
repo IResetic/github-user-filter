@@ -13,14 +13,11 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface FilterUsersRemoteModule {
+object FilterUsersRemoteModule {
 
     @Singleton
     @Provides
     fun provideFilterUsersApi(retrofit: Retrofit): FilterUsersApi {
         return retrofit.create(FilterUsersApi::class.java)
     }
-
-    @Binds
-    fun providesFilterUsersRemoteDatasource(impl: FilterUsersRemoteDatasourceImpl): FilterUsersRemoteDatasource
 }

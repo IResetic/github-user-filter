@@ -1,5 +1,6 @@
 package com.example.githubuserfilter.githubusers.presentation.navigation
 
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
@@ -11,6 +12,7 @@ object GithubUsersScreenNavigation : NavigationDestination {
     override val destination: String = "github-users-screen-destination"
 }
 
+@ExperimentalMaterial3Api
 fun NavGraphBuilder.githubUsersGraph() {
     navigation(
         route = GithubUsersScreenNavigation.route,
