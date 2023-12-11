@@ -11,13 +11,19 @@ import javax.inject.Inject
 class FilterUsersRepositoryImpl @Inject constructor(
     private val filterUsersRemoteDatasource: FilterUsersRemoteDatasource,
     private val basicUserInfoDtoToBasicUserInfo: BasicUserInfoDtoToBasicUserInfo
-): FilterUsersRepository {
+) : FilterUsersRepository {
 
-    override suspend fun filterUsersByKeyword(keyword: String, page: Int): ApiResult<List<BasicUserInfo?>> {
-         return filterUsersRemoteDatasource.filterUsers(keyword = keyword, page = page).mapResult { userFilterResult ->
-             userFilterResult.items?.map { basicUserInfoDto ->
-                 basicUserInfoDtoToBasicUserInfo(basicUserInfoDto)
-             }
+    override suspend fun filterUsersByKeyword(
+        keyword: String,
+        page: Int
+    ): ApiResult<List<BasicUserInfo?>> {
+        return filterUsersRemoteDatasource.filterUsers(
+            keyword = keyword,
+            page = page
+        ).mapResult { userFilterResult ->
+            userFilterResult.items?.map { basicUserInfoDto ->
+                basicUserInfoDtoToBasicUserInfo(basicUserInfoDto)
+            }
         }
     }
 }

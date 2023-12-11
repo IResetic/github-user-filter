@@ -6,8 +6,6 @@ import com.example.githubuserfilter.githubusers.presentation.model.GithubUsersSc
 data class GithubUsersScreenState(
     val filterUsers : List<BasicUserInfo> = emptyList(),
     val errorMessage: String = "",
-    val isNewFiltering: Boolean = false,
-    val isLoadingMore: Boolean = false,
-    val filterKeyword2: String = "",
+    val filterKeyword: String = "",
     val uiState: GithubUsersScreenUIState = GithubUsersScreenUIState.Idle
 )

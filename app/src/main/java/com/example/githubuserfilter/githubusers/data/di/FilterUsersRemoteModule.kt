@@ -1,9 +1,6 @@
 package com.example.githubuserfilter.githubusers.data.di
 
 import com.example.githubuserfilter.githubusers.data.api.FilterUsersApi
-import com.example.githubuserfilter.githubusers.data.datasource.FilterUsersRemoteDatasource
-import com.example.githubuserfilter.githubusers.data.datasource.FilterUsersRemoteDatasourceImpl
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,6 +1,5 @@
 package com.example.githubuserfilter.githubusers.presentation.ui
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -31,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.githubuserfilter.R
-import com.example.githubuserfilter.core.constatns.extraLargePadding
 import com.example.githubuserfilter.core.constatns.largerPadding
 import com.example.githubuserfilter.core.constatns.mediumPadding
 import com.example.githubuserfilter.core.constatns.smallPadding
@@ -50,8 +47,9 @@ fun GithubUsersScreen() {
 
     LaunchedEffect(listState.layoutInfo.visibleItemsInfo) {
         val lastVisibleItem = listState.layoutInfo.visibleItemsInfo.lastOrNull()
-        val totalItems = listState.layoutInfo.totalItemsCount
-        if(lastVisibleItem != null && lastVisibleItem.index >= totalItems - 20) {
+        val totalNumbersItems = listState.layoutInfo.totalItemsCount
+
+        if(lastVisibleItem != null && lastVisibleItem.index >= totalNumbersItems - 20) {
             viewModel.onEvent(GithubUsersScreenEvent.LoadMoreUsers)
         }
     }
@@ -62,8 +60,8 @@ fun GithubUsersScreen() {
         }
     }
 
-    val filterText = githubUsersStateUi.filterKeyword2
-    val emptyListText = stringResource(id = if(filterText.isEmpty()) {
+    val filterText = githubUsersStateUi.filterKeyword
+    val emptyListText = stringResource(id = if (filterText.isEmpty()) {
         R.string.github_users_empty_filter_keyword
     } else {
         R.string.github_users_no_data_to_display
@@ -136,6 +134,5 @@ fun GithubUsersScreen() {
                 }
             }
         }
-
     }
 }

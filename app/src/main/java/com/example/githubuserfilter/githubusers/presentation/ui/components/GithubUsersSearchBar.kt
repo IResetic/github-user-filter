@@ -28,13 +28,12 @@ import com.example.githubuserfilter.githubusers.presentation.ui.GithubUsersScree
 @Composable
 fun GithubUsersSearchBar() {
     val viewModel = hiltViewModel<GithubUsersScreenViewModel>()
-    // val filterKeyword = viewModel.filterKeyword.collectAsState()
     val githubUsersScreenState = viewModel.githubUsersState.collectAsState()
 
     var isFilterFocused by remember { mutableStateOf(false) }
 
     TextField(
-        value = githubUsersScreenState.value.filterKeyword2,
+        value = githubUsersScreenState.value.filterKeyword,
         onValueChange = {
             viewModel.onEvent(FilterUsers(it))
         },
@@ -45,11 +44,10 @@ fun GithubUsersSearchBar() {
         singleLine = true,
         trailingIcon = {
             IconButton(onClick = { viewModel.onEvent(FilterUsers("")) }) {
-                if(isFilterFocused && githubUsersScreenState.value.filterKeyword2.length > 1) {
+                if(isFilterFocused && githubUsersScreenState.value.filterKeyword.length > 1) {
                     Icon(imageVector = Icons.Filled.Clear, contentDescription = "Clear")
                 }
             }
-
         },
         shape = SearchBarDefaults.inputFieldShape,
         colors = TextFieldDefaults.colors(
@@ -58,76 +56,4 @@ fun GithubUsersSearchBar() {
             disabledIndicatorColor = Color.Transparent
         )
     )
-
-    /*
-
-                if (usernameFocused && username.length > 1) {
-                IconButton(onClick = { updateUsername("") }) {
-                    AppIcon(imageVector = Icons.Outlined.Cancel)
-                }
-            }
-
-        OutlinedTextField(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                horizontal = smallPadding,
-                vertical = mediumPadding
-            ),
-        value = githubUsersScreenState.value.filterKeyword2,
-        onValueChange = {
-            viewModel.onEvent(FilterUsers(it))
-        },
-        singleLine = true,
-        shape = SearchBarDefaults.inputFieldShape,
-
-    )
-
-        BasicTextField(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                horizontal = smallPadding,
-                vertical = mediumPadding
-            ),
-        value = githubUsersScreenState.value.filterKeyword2,
-        onValueChange = {
-            viewModel.onEvent(FilterUsers(it))
-        },
-        singleLine = true,
-        ) {
-    }
-
-        TextField(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = smallPadding, vertical = mediumPadding),
-        value = githubUsersScreenState.value.filterKeyword2,
-        onValueChange = {
-            viewModel.onEvent(FilterUsers(it))
-        },
-        shape = SearchBarDefaults.inputFieldShape,
-        singleLine = true,
-
-    )
-    SearchBar(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = smallPadding, vertical = mediumPadding),
-        query = githubUsersScreenState.value.filterKeyword2,
-        // query = filterKeyword.value,
-        onQueryChange ={
-            // viewModel.onEvent(UpdateSearchKeyword(it))
-            viewModel.onEvent(FilterUsers(it))
-        } ,
-        onSearch = {
-            focusManager.clearFocus()
-            //viewModel.onEvent(FilterUsers(it))
-        },
-        active = false,
-        onActiveChange = {}
-    ) {
-
-    }
-    */
 }
