@@ -4,4 +4,7 @@
     <!-- GithubUsersScreen -->
     <string name="github_users_no_data_to_display">Currently, there are no results to display.</string>
     <string name="github_users_empty_filter_keyword">Please enter the keyword with at least two letter.</string>
+
+    <!--Github users item -->
+    <string name="user_item_type_label">Type</string>
 </resources>

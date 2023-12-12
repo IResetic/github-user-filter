@@ -90,4 +90,7 @@ dependencies {
     // ***** Moshi *****
     implementation moshi
     ksp moshi_kotlin_codegen
+
+    // ***** Image *****
+    implementation coil
 }
