@@ -1,17 +1,15 @@
 package com.example.githubuserfilter.userdetails.presentation.ui
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.githubuserfilter.core.result.onError
 import com.example.githubuserfilter.core.result.onSuccess
-import com.example.githubuserfilter.githubusersfilter.presentation.ui.GithubUsersScreenViewModel
 import com.example.githubuserfilter.userdetails.domain.usercase.GetUserDetails
 import com.example.githubuserfilter.userdetails.presentation.model.UserDetailsScreenUiState
 import com.example.githubuserfilter.userdetails.presentation.navigation.UserDetailsScreenDestination.USERNAME
 import com.example.githubuserfilter.userdetails.presentation.ui.UserDetailsScreenEvent.FetchUserDetails
+import com.example.githubuserfilter.usersfilter.presentation.ui.GithubUsersScreenViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

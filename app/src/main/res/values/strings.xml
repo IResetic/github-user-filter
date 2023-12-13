@@ -4,6 +4,11 @@
     <!-- GithubUsersScreen -->
     <string name="github_users_no_data_to_display">Currently, there are no results to display.</string>
     <string name="github_users_empty_filter_keyword">Please enter the keyword with at least two letter.</string>
+    <string name="server_error_toast_message">Server Error</string>
+    <string name="no_internet_connection_toast_message">There is no internet connection</string>
+    <string name="connection_timeout_toast_message">Connection time out</string>
+    <string name="exception_toast_message">The exception is thrown</string>
+    <string name="unknown_error_toast_message">Unknown error</string>
 
     <!--Github users item -->
     <string name="user_item_type_label">Type</string>

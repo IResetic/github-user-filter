@@ -9,7 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.magnifier
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
@@ -46,21 +47,24 @@ fun UserDetailsScreen(
 
     val viewModel = hiltViewModel<UserDetailsScreenViewModel>()
     val userDetailsState by viewModel.userDetailsState.collectAsState()
+    val scrollState = rememberScrollState()
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(viewModel.username ?: "") },
-                navigationIcon = { IconButton(onClick = { navigateBack() }) {
-                    Icon(
-                        Icons.Filled.ArrowBack,
-                        stringResource(id = R.string.content_description_toolbar_back_arrow)
-                    )
-                }}
+                navigationIcon = {
+                    IconButton(onClick = { navigateBack() }) {
+                        Icon(
+                            Icons.Filled.ArrowBack,
+                            stringResource(id = R.string.content_description_toolbar_back_arrow)
+                        )
+                    }
+                }
             )
         }
     ) { paddingValues ->
-        when(userDetailsState.uiState) {
+        when (userDetailsState.uiState) {
             is UserDetailsScreenUiState.GetUserData -> {
                 Box(
                     contentAlignment = Alignment.Center,
@@ -78,6 +82,7 @@ fun UserDetailsScreen(
                         .padding(paddingValues)
                         .fillMaxSize()
                         .padding(horizontal = largerPadding * 2)
+                        .verticalScroll(scrollState)
                 ) {
                     Text(
                         text = stringResource(id = R.string.user_details_error_text),
@@ -102,7 +107,9 @@ fun UserDetailsScreen(
                     modifier = Modifier.padding(paddingValues)
                 ) {
                     Column(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .verticalScroll(scrollState),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Spacer(modifier = Modifier.height(mediumPadding))
@@ -158,6 +165,7 @@ fun UserDetailsScreen(
                             Text(text = userDetailsState.userDetails?.bio ?: "")
                         }
 
+                        Spacer(modifier = Modifier.height(mediumPadding))
                     }
                 }
             }
