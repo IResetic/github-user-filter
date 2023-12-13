@@ -1,5 +1,6 @@
 package com.example.githubuserfilter.usersfilter.presentation.ui
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -34,6 +35,8 @@ import com.example.githubuserfilter.core.constatns.mediumPadding
 import com.example.githubuserfilter.core.constatns.smallPadding
 import com.example.githubuserfilter.core.result.ApiErrorType
 import com.example.githubuserfilter.usersfilter.presentation.model.GithubUsersScreenUIState
+import com.example.githubuserfilter.usersfilter.presentation.ui.GithubUsersScreenEvent.ClearErrorType
+import com.example.githubuserfilter.usersfilter.presentation.ui.GithubUsersScreenEvent.LoadMoreUsers
 import com.example.githubuserfilter.usersfilter.presentation.ui.GithubUsersScreenViewModel.Companion.PAGING_BUFFER
 import com.example.githubuserfilter.usersfilter.presentation.ui.components.GithubUserItem
 import com.example.githubuserfilter.usersfilter.presentation.ui.components.GithubUsersSearchBar
@@ -66,19 +69,14 @@ fun GithubUsersScreen(
         val totalNumbersItems = listState.layoutInfo.totalItemsCount
 
         if (lastVisibleItem != null && lastVisibleItem.index >= totalNumbersItems - PAGING_BUFFER) {
-            viewModel.onEvent(GithubUsersScreenEvent.LoadMoreUsers)
-        }
-    }
-
-    LaunchedEffect(githubUsersStateUi.errorType) {
-        if (githubUsersStateUi.errorType != null) {
-            Toast.makeText(context, getErrorMessage(), Toast.LENGTH_SHORT).show()
+            Log.d("TEST_LOAD", "LOAD MORE")
+            viewModel.onEvent(LoadMoreUsers)
         }
     }
 
     val filterText = githubUsersStateUi.filterKeyword
     val emptyListText = stringResource(
-        id = if (filterText.isEmpty()) {
+        id = if (filterText.length < 2) {
             R.string.github_users_empty_filter_keyword
         } else {
             R.string.github_users_no_data_to_display
@@ -128,7 +126,10 @@ fun GithubUsersScreen(
                         items(githubUsersStateUi.filterUsers) { user ->
                             GithubUserItem(
                                 user = user,
-                                navigateToUserDetails = navigateToUserDetails,
+                                navigateToUserDetails = {
+                                    viewModel.onEvent(ClearErrorType)
+                                    navigateToUserDetails(it)
+                                },
                             )
                             Divider()
                         }
@@ -142,6 +143,10 @@ fun GithubUsersScreen(
                                 ) {
                                     CircularProgressIndicator()
                                 }
+                            }
+
+                            if (githubUsersStateUi.uiState == GithubUsersScreenUIState.Error) {
+                                Toast.makeText(context, getErrorMessage(), Toast.LENGTH_SHORT).show()
                             }
                         }
                     }

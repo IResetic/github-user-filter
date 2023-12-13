@@ -4,8 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.githubuserfilter.core.result.onError
 import com.example.githubuserfilter.core.result.onSuccess
+import com.example.githubuserfilter.usersfilter.domain.model.BasicUserInfo
 import com.example.githubuserfilter.usersfilter.domain.usecase.GetFilteredUsers
 import com.example.githubuserfilter.usersfilter.presentation.model.GithubUsersScreenUIState
+import com.example.githubuserfilter.usersfilter.presentation.ui.GithubUsersScreenEvent.ClearErrorType
 import com.example.githubuserfilter.usersfilter.presentation.ui.GithubUsersScreenEvent.FilterUsers
 import com.example.githubuserfilter.usersfilter.presentation.ui.GithubUsersScreenEvent.LoadMoreUsers
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,7 +26,7 @@ class GithubUsersScreenViewModel @Inject constructor(
     private val getFilteredUsers: GetFilteredUsers
 ) : ViewModel() {
 
-    private val _githubUsersState = MutableStateFlow(GithubUsersScreenState())
+    private var _githubUsersState = MutableStateFlow(GithubUsersScreenState())
     val githubUsersState: StateFlow<GithubUsersScreenState> = _githubUsersState.asStateFlow()
     private var filterJob: Job? = null
     private var loadMoreJob: Job? = null
@@ -32,34 +34,31 @@ class GithubUsersScreenViewModel @Inject constructor(
 
     fun onEvent(event: GithubUsersScreenEvent) {
         when (event) {
-            is FilterUsers -> { setFilterKeyword(event.queryString) }
+            is FilterUsers -> { startFilteringUsers(event.queryString) }
             is LoadMoreUsers -> { loadMore() }
+            is ClearErrorType -> { clearErrorType() }
         }
     }
 
-    private fun setFilterKeyword(keyword: String) {
+    private fun startFilteringUsers(keyword: String) {
         _githubUsersState.update { currentState ->
-            currentState.copy(
-                filterKeyword = keyword,
-                uiState = GithubUsersScreenUIState.StartFilteringUsers
-            )
+            currentState.copy(filterKeyword = keyword,)
+        }
+
+        if(keyword.length < 2) return
+
+        _githubUsersState.update { currentState ->
+            currentState.copy(uiState = GithubUsersScreenUIState.StartFilteringUsers)
         }
 
         filterJob?.cancel()
 
         if (_githubUsersState.value.filterKeyword.isBlank()) {
-            _githubUsersState.update { currentState ->
-                currentState.copy(
-                    uiState = GithubUsersScreenUIState.Idle,
-                    filterUsers = emptyList()
-                )
-            }
+            clearFilteredList()
             return
         }
 
         filterJob = viewModelScope.launch(Dispatchers.IO) {
-            delay(FILTER_DEBOUNCE_MS)
-
             this@GithubUsersScreenViewModel.offset = 0
 
             filterUsers(keyword, 0)
@@ -70,12 +69,7 @@ class GithubUsersScreenViewModel @Inject constructor(
         delay(FILTER_DEBOUNCE_MS)
 
         if (_githubUsersState.value.filterKeyword.isBlank()) {
-            _githubUsersState.update { currentState ->
-                currentState.copy(
-                    filterUsers = emptyList(),
-                    uiState = GithubUsersScreenUIState.Idle
-                )
-            }
+            clearFilteredList()
             return
         }
 
@@ -84,41 +78,64 @@ class GithubUsersScreenViewModel @Inject constructor(
                 _githubUsersState.update {
                     it.copy(
                         errorType = error,
-                        uiState = GithubUsersScreenUIState.Idle
+                        uiState = GithubUsersScreenUIState.Error,
                     )
                 }
             }
             .onSuccess { users ->
-                val filterUsers = users.filterNotNull().distinctBy { it.userId }
-
-                val newValue = if (offset == 0) {
-                    filterUsers
-                } else {
-                    _githubUsersState.value.filterUsers.toMutableList().apply {
-                        addAll(filterUsers)
-                    }
-                }
-
                 this@GithubUsersScreenViewModel.offset = offset + 1
 
                 _githubUsersState.update { currentState ->
                     currentState.copy(
-                        filterUsers = newValue,
+                        filterUsers = updateFilteredUsersList(users, offset),
+                        errorType = null,
                         uiState = GithubUsersScreenUIState.Success
                     )
                 }
             }
     }
 
+    private fun updateFilteredUsersList(newUsers: List<BasicUserInfo?>, offset: Int) :  List<BasicUserInfo> {
+        val filterUsers = newUsers.filterNotNull().distinctBy { it.userId }
+
+        return if (offset == 0) {
+            filterUsers
+        } else {
+            _githubUsersState.value.filterUsers.toMutableList().apply {
+                addAll(filterUsers)
+            }
+        }
+    }
+
     private fun loadMore() {
         if (loadMoreJob?.isActive == true) return
 
         _githubUsersState.update { currentState ->
-            currentState.copy(uiState = GithubUsersScreenUIState.LoadMoreUsers)
+            currentState.copy(
+                uiState = GithubUsersScreenUIState.LoadMoreUsers,
+            )
         }
 
         loadMoreJob = viewModelScope.launch(Dispatchers.IO) {
             filterUsers(_githubUsersState.value.filterKeyword, offset)
+        }
+    }
+
+    private fun clearErrorType() {
+        _githubUsersState.update { currentState ->
+            currentState.copy(
+                errorType = null,
+                uiState = GithubUsersScreenUIState.Idle
+            )
+        }
+    }
+
+    private fun clearFilteredList() {
+        _githubUsersState.update { currentState ->
+            currentState.copy(
+                uiState = GithubUsersScreenUIState.Idle,
+                filterUsers = emptyList()
+            )
         }
     }
 

@@ -10,6 +10,9 @@
     <string name="exception_toast_message">The exception is thrown</string>
     <string name="unknown_error_toast_message">Unknown error</string>
 
+    <!-- User Search bar -->
+    <string name="search_bar_placeholder_text">Enter keyword</string>
+
     <!--Github users item -->
     <string name="user_item_type_label">Type</string>
 
@@ -25,4 +28,5 @@
 
     <!-- Content description -->
     <string name="content_description_toolbar_back_arrow">Back</string>
+    <string name="content_description_clear_button">Clear</string>
 </resources>

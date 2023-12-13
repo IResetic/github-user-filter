@@ -5,4 +5,5 @@ sealed class GithubUsersScreenUIState {
     data object StartFilteringUsers : GithubUsersScreenUIState()
     data object LoadMoreUsers : GithubUsersScreenUIState()
     data object Success : GithubUsersScreenUIState()
+    data object Error : GithubUsersScreenUIState()
 }

@@ -6,9 +6,9 @@ import com.example.githubuserfilter.userdetails.data.api.model.DetailsUserInfoDt
 import com.example.githubuserfilter.usersfilter.data.handler.handleApi
 import javax.inject.Inject
 
-class UserDetailsRemoteDatasourceImpl @Inject constructor(
+class UserDetailsRemoteDataSourceImpl @Inject constructor(
     private val userDetailsApi: UserDetailsApi
-) : UserDetailsRemoteDatasource {
+) : UserDetailsRemoteDataSource {
     override suspend fun getUserDetails(username: String): ApiResult<DetailsUserInfoDto> {
         return handleApi { userDetailsApi.getUserDetails(username) }
     }

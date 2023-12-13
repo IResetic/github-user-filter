@@ -1,7 +1,7 @@
 package com.example.githubuserfilter.userdetails.data.di
 
-import com.example.githubuserfilter.userdetails.data.datasource.UserDetailsRemoteDatasource
-import com.example.githubuserfilter.userdetails.data.datasource.UserDetailsRemoteDatasourceImpl
+import com.example.githubuserfilter.userdetails.data.datasource.UserDetailsRemoteDataSource
+import com.example.githubuserfilter.userdetails.data.datasource.UserDetailsRemoteDataSourceImpl
 import com.example.githubuserfilter.userdetails.data.repository.UserDetailsRepositoryImpl
 import com.example.githubuserfilter.userdetails.domain.repository.UserDetailsRepository
 import dagger.Binds
@@ -17,5 +17,5 @@ interface UserDetailsDataModule {
     fun bindUserDetailsRepository(impl: UserDetailsRepositoryImpl): UserDetailsRepository
 
     @Binds
-    fun bindsUserDetailsRemoteDatasource(impl: UserDetailsRemoteDatasourceImpl): UserDetailsRemoteDatasource
+    fun bindsUserDetailsRemoteDatasource(impl: UserDetailsRemoteDataSourceImpl): UserDetailsRemoteDataSource
 }
