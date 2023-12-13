@@ -7,4 +7,17 @@
 
     <!--Github users item -->
     <string name="user_item_type_label">Type</string>
+
+    <!--User details scree -->
+    <string name="user_details_name_label">Name</string>
+    <string name="user_details_email_label">email</string>
+    <string name="user_details_number_of_followers_label">Number of followers</string>
+    <string name="user_details_number_of_repos_label">Number of repos</string>
+    <string name="user_details_bio_label">Bio</string>
+    <string name="user_details_error_text">Unable to fetch user data</string>
+    <string name="user_details_try_again_button_text">Try again</string>
+
+
+    <!-- Content description -->
+    <string name="content_description_toolbar_back_arrow">Back</string>
 </resources>

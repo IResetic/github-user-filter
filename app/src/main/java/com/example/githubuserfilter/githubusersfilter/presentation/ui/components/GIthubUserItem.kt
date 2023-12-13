@@ -23,11 +23,11 @@ import com.example.githubuserfilter.githubusersfilter.domain.model.BasicUserInfo
 @Composable
 fun GithubUserItem(
     user: BasicUserInfo,
-    navigateToUserDetails: (userId: Int) -> Unit,
+    navigateToUserDetails: (username: String) -> Unit,
 ) {
     Row(
         modifier = Modifier
-            .clickable { navigateToUserDetails(user.userId) }
+            .clickable { navigateToUserDetails(user.username) }
             .fillMaxWidth()
             .padding(mediumPadding),
         horizontalArrangement = Arrangement.SpaceEvenly,

@@ -6,8 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.example.githubuserfilter.githubusersfilter.presentation.navigation.GithubUsersScreenNavigation
 import com.example.githubuserfilter.githubusersfilter.presentation.navigation.githubUsersGraph
-import com.example.githubuserfilter.userdetails.navigation.UserDetailsScreenDestination
-import com.example.githubuserfilter.userdetails.navigation.userDetailsGraph
+import com.example.githubuserfilter.userdetails.presentation.navigation.UserDetailsScreenDestination
+import com.example.githubuserfilter.userdetails.presentation.navigation.userDetailsGraph
 
 @ExperimentalMaterial3Api
 @Composable

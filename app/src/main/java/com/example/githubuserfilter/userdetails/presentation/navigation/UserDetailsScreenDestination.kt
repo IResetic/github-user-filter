@@ -1,4 +1,4 @@
-package com.example.githubuserfilter.userdetails.navigation
+package com.example.githubuserfilter.userdetails.presentation.navigation
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
@@ -6,15 +6,15 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
 import com.example.githubuserfilter.core.presentation.navigation.NavigationDestination
-import com.example.githubuserfilter.userdetails.ui.UserDetailsScreen
+import com.example.githubuserfilter.userdetails.presentation.ui.UserDetailsScreen
 
 object UserDetailsScreenDestination: NavigationDestination {
-    const val USER_ID = "user_id"
-    override val route: String = "user-details-screen-route?$USER_ID={$USER_ID}"
+    const val USERNAME = "user_id"
+    override val route: String = "user-details-screen-route?$USERNAME={$USERNAME}"
     override val destination: String = "user-details-screen-destination"
 
-    fun route(userId: Int): String {
-        return route.replace("{$USER_ID}", userId.toString())
+    fun route(username: String): String {
+        return route.replace("{$USERNAME}", username)
     }
 }
 
@@ -28,7 +28,7 @@ fun NavGraphBuilder.userDetailsGraph(
         composable(
             route = UserDetailsScreenDestination.route,
             arguments = listOf(
-                navArgument(UserDetailsScreenDestination.USER_ID) {type = NavType.IntType}
+                navArgument(UserDetailsScreenDestination.USERNAME) { type = NavType.StringType }
             )
         ) {
             UserDetailsScreen(
@@ -37,9 +37,3 @@ fun NavGraphBuilder.userDetailsGraph(
         }
     }
 }
-
-/*
-        arguments = listOf(
-            navArgument(LocationWeatherDestination.LOCATION_ID) { type = NavType.IntType }
-        )
- */

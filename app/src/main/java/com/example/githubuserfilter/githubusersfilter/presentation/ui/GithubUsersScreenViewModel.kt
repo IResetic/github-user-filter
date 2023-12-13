@@ -135,5 +135,6 @@ class GithubUsersScreenViewModel @Inject constructor(
 
     companion object {
         const val FILTER_DEBOUNCE_MS = 1000L
+        const val PAGING_BUFFER = 20
     }
 }

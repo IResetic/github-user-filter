@@ -33,13 +33,14 @@ import com.example.githubuserfilter.core.constatns.largerPadding
 import com.example.githubuserfilter.core.constatns.mediumPadding
 import com.example.githubuserfilter.core.constatns.smallPadding
 import com.example.githubuserfilter.githubusersfilter.presentation.model.GithubUsersScreenUIState
+import com.example.githubuserfilter.githubusersfilter.presentation.ui.GithubUsersScreenViewModel.Companion.PAGING_BUFFER
 import com.example.githubuserfilter.githubusersfilter.presentation.ui.components.GithubUserItem
 import com.example.githubuserfilter.githubusersfilter.presentation.ui.components.GithubUsersSearchBar
 
 @ExperimentalMaterial3Api
 @Composable
 fun GithubUsersScreen(
-    navigateToUserDetails: (userId : Int) -> Unit,
+    navigateToUserDetails: (username: String) -> Unit,
 ) {
     val viewModel = hiltViewModel<GithubUsersScreenViewModel>()
     val githubUsersStateUi by viewModel.githubUsersState.collectAsState()
@@ -50,7 +51,7 @@ fun GithubUsersScreen(
         val lastVisibleItem = listState.layoutInfo.visibleItemsInfo.lastOrNull()
         val totalNumbersItems = listState.layoutInfo.totalItemsCount
 
-        if(lastVisibleItem != null && lastVisibleItem.index >= totalNumbersItems - 20) {
+        if (lastVisibleItem != null && lastVisibleItem.index >= totalNumbersItems - PAGING_BUFFER) {
             viewModel.onEvent(GithubUsersScreenEvent.LoadMoreUsers)
         }
     }
@@ -62,11 +63,13 @@ fun GithubUsersScreen(
     }
 
     val filterText = githubUsersStateUi.filterKeyword
-    val emptyListText = stringResource(id = if (filterText.isEmpty()) {
-        R.string.github_users_empty_filter_keyword
-    } else {
-        R.string.github_users_no_data_to_display
-    })
+    val emptyListText = stringResource(
+        id = if (filterText.isEmpty()) {
+            R.string.github_users_empty_filter_keyword
+        } else {
+            R.string.github_users_no_data_to_display
+        }
+    )
 
     Scaffold(
         topBar = { GithubUsersSearchBar() }
@@ -80,7 +83,7 @@ fun GithubUsersScreen(
                     .fillMaxSize()
             ) { CircularProgressIndicator() }
         } else {
-            if(githubUsersStateUi.filterUsers.isEmpty()) {
+            if (githubUsersStateUi.filterUsers.isEmpty()) {
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
@@ -116,7 +119,7 @@ fun GithubUsersScreen(
                             Divider()
                         }
                         item {
-                            if(githubUsersStateUi.uiState == GithubUsersScreenUIState.LoadMoreUsers) {
+                            if (githubUsersStateUi.uiState == GithubUsersScreenUIState.LoadMoreUsers) {
                                 Row(
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -127,7 +130,6 @@ fun GithubUsersScreen(
                                 }
                             }
                         }
-
                     }
                 }
             }

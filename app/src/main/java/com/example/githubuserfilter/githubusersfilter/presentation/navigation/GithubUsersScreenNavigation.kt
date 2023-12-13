@@ -14,7 +14,7 @@ object GithubUsersScreenNavigation : NavigationDestination {
 
 @ExperimentalMaterial3Api
 fun NavGraphBuilder.githubUsersGraph(
-    navigateToUserDetails: (Int) -> Unit,
+    navigateToUserDetails: (String) -> Unit,
 ) {
     navigation(
         route = GithubUsersScreenNavigation.route,
