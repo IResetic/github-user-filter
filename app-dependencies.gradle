@@ -18,7 +18,7 @@ ext {
     splash_screen_version = "1.0.1"
     retrofit_version = "2.9.0"
     moshi_version = "1.15.0"
-    okHttp_logging_version = "4.10.0"
+    okHttp_logging_version = "4.11.0"
     ksp_version = "1.9.10-1.0.13"
     coroutines_version = "1.7.3"
     coil_version = "2.5.0"
@@ -56,11 +56,11 @@ ext {
     // ***** Retrofit *****
     retrofit = "com.squareup.retrofit2:retrofit:$retrofit_version"
     retrofit_moshi_converter = "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    okHttp_logging_interceptor = "com.squareup.okhttp3:logging-interceptor:$okHttp_logging_version"
 
     // ***** Moshi *****
     moshi = "com.squareup.moshi:moshi:$moshi_version"
     moshi_kotlin_codegen = "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
-    okHttp_logging_interceptor = "com.squareup.okhttp3:logging-interceptor:$okHttp_logging_version"
 
     // ***** Image *****
     coil = "io.coil-kt:coil-compose:$coil_version"

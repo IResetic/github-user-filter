@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.githubuserfilter.R
 import com.example.githubuserfilter.core.constatns.largerPadding
+import com.example.githubuserfilter.core.constatns.mainLabelLineHeight
 import com.example.githubuserfilter.core.constatns.mediumPadding
 import com.example.githubuserfilter.core.constatns.smallPadding
 import com.example.githubuserfilter.userdetails.presentation.model.UserDetailsScreenUiState
@@ -88,7 +89,7 @@ fun UserDetailsScreen(
                         text = stringResource(id = R.string.user_details_error_text),
                         style = MaterialTheme.typography.titleMedium.copy(
                             color = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f),
-                            lineHeight = 28.sp
+                            lineHeight = mainLabelLineHeight
 
                         ),
                         textAlign = TextAlign.Center
